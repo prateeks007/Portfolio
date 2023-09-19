@@ -1,21 +1,42 @@
 import React from "react";
-import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  Animated,
+} from "react-native";
 import Footer from "./footer";
+import { useState } from "react";
 
 function MainScreen(props) {
+  const [header, setHeader] = useState(false);
+  const changeOpacity = () => {
+    if (window.scrollY >= 100) {
+      setHeader(true);
+    } else {
+      setHeader(false);
+    }
+  };
+  window.addEventListener("scroll", changeOpacity);
+
   return (
     <ImageBackground
       style={styles.background}
       source={require("/assets/images/background3.jpg")}
     >
-      <View style={[styles.main_info]}>
+      <View style={header ? styles.header_active : styles.header_inactive}>
         <Image
           style={styles.profile_image}
           source={require("/assets/images/background.jpg")}
         ></Image>
         <Text style={styles.text_main_info}>Prateek Shetty</Text>
       </View>
-
+      <View style={{ gap: 75 }}>
+        <View />
+        <View />
+      </View>
       <View style={styles.view_description}>
         <Text style={styles.text_description}>
           Heyyy!! I am Prateek Shetty, a 2023 CSE graduate from PES University.
@@ -50,14 +71,22 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     opacity: 0.7,
   },
-
-  main_info: {
+  header_active: {
     alignSelf: "stretch",
     alignItems: "center",
     backgroundColor: "black",
     flex: 1,
     position: "sticky",
     top: 0,
+    zIndex: 1,
+  },
+  header_inactive: {
+    alignSelf: "stretch",
+    alignItems: "center",
+    flex: 1,
+    position: "sticky",
+    top: 0,
+    zIndex: 1,
   },
   profile_image: {
     width: 150,
@@ -80,7 +109,8 @@ const styles = StyleSheet.create({
     borderRadius: 50 / 2,
     alignContent: "center",
     backgroundColor: "black",
-    opacity: 0.5,
+    opacity: 0.8,
+    margin: 20,
   },
 });
 
