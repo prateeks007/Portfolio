@@ -7,7 +7,6 @@ import {
   Text,
   Animated,
 } from "react-native";
-import Footer from "./footer";
 import { useState } from "react";
 
 function MainScreen(props) {
@@ -52,9 +51,6 @@ function MainScreen(props) {
       <View style={styles.view_description}>
         <Text style={styles.text_description}>Achievements</Text>
       </View>
-      <View style={styles.footer}>
-        <Footer />
-      </View>
     </ImageBackground>
   );
 }
@@ -65,12 +61,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
   },
-  footer: {
-    alignSelf: "stretch",
-    alignContent: "center",
-    backgroundColor: "black",
-    opacity: 0.7,
-  },
+
   header_active: {
     alignSelf: "stretch",
     alignItems: "center",
