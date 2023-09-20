@@ -39,7 +39,12 @@ function MainScreen(props) {
       <View style={styles.view_description}>
         <Text style={styles.text_description}>
           Heyyy!! I am Prateek Shetty, a 2023 CSE graduate from PES University.
-          I am currently working as a Junior Devops Engineer in EOX Vantage.
+          I am currently working as a Junior Devops Engineer in EOX Vantage. I'm
+          a passionate tech enthusiast on a journey to transform ideas into
+          digital realities. As a software engineer, problem solver, and
+          lifelong learner, I thrive on the endless possibilities of technology.
+          Welcome to my portfolio, where I showcase my adventures in code,
+          design, and innovation.
         </Text>
       </View>
       <View style={styles.view_description}>
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
   },
   text_main_info: {
     color: "white",
-    fontSize: 30,
+    fontSize: 20,
   },
   view_description: {
     width: "75%",
