@@ -23,12 +23,12 @@ function MainScreen(props) {
   return (
     <ImageBackground
       style={styles.background}
-      source={require("/assets/images/background3.jpg")}
+      source={require("./assets/images/background3.jpg")}
     >
       <View style={header ? styles.header_active : styles.header_inactive}>
         <Image
           style={styles.profile_image}
-          source={require("/assets/images/background.jpg")}
+          source={require("./assets/images/background.jpg")}
         ></Image>
         <Text style={styles.text_main_info}>Prateek Shetty</Text>
       </View>
@@ -80,9 +80,9 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   profile_image: {
-    width: 150,
-    height: 150,
-    borderRadius: 150 / 2,
+    width: 100,
+    height: 100,
+    borderRadius: 100 / 2,
   },
   text_description: {
     color: "white",
