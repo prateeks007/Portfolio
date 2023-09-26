@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     backgroundColor: "black",
     opacity: 0.8,
-    margin: 20,
+    margin: 2,
   },
 });
 
