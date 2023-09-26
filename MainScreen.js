@@ -8,7 +8,8 @@ import {
   Animated,
 } from "react-native";
 import { useState } from "react";
-
+import { FaLinkedinIn } from "react-icons/fa";
+import { AiFillGithub } from "react-icons/ai";
 function MainScreen(props) {
   const [header, setHeader] = useState(false);
   const changeOpacity = () => {
@@ -56,6 +57,24 @@ function MainScreen(props) {
       <View style={styles.view_description}>
         <Text style={styles.text_description}>Achievements</Text>
       </View>
+
+      <View style={[styles.footer]}>
+        <a
+          style={styles.icons}
+          target="_blank"
+          href="https://linkedin.com/in/prateek-shetty-7375031a6/"
+        >
+          <FaLinkedinIn />
+        </a>
+
+        <a
+          href="https://github.com/prateeks007"
+          style={styles.icons}
+          target="_blank"
+        >
+          <AiFillGithub />
+        </a>
+      </View>
     </ImageBackground>
   );
 }
@@ -65,6 +84,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "relative",
     flex: 1,
+  },
+
+  footer: {
+    alignSelf: "stretch",
+    alignItems: "center",
+    backgroundColor: "black",
+    bottom: 0,
+    zIndex: 0,
+    height: 50,
+
+    flexDirection: "row",
+    justifyContent: "center",
   },
 
   header_active: {
@@ -83,6 +114,12 @@ const styles = StyleSheet.create({
     position: "sticky",
     top: 0,
     zIndex: 1,
+  },
+
+  icons: {
+    color: "white",
+    margin: 10,
+    fontSize: 20,
   },
   profile_image: {
     width: 100,
