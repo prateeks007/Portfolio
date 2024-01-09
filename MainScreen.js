@@ -6,10 +6,13 @@ import {
   Image,
   Text,
   Animated,
+  TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 import { AiFillGithub } from "react-icons/ai";
+import { useNavigation } from "@react-navigation/native";
+
 function MainScreen(props) {
   const [header, setHeader] = useState(false);
   const changeOpacity = () => {
@@ -21,41 +24,46 @@ function MainScreen(props) {
   };
   window.addEventListener("scroll", changeOpacity);
 
+  const navigation = useNavigation();
+  const navigateToSkills = () => {
+    navigation.navigate("Skills"); // Navigate to the Skills screen
+  };
   return (
     <ImageBackground
       style={styles.background}
-      source={require("./assets/images/background3.jpg")}
+      source={require("./assets/images/solid-color-image.jpeg")}
     >
-      <View style={header ? styles.header_active : styles.header_inactive}>
-        <Image
-          style={styles.profile_image}
-          source={require("./assets/images/background.jpg")}
-        ></Image>
-        <Text style={styles.text_main_info}>Prateek Shetty</Text>
+      {/* <View style={header ? styles.header_active : styles.header_inactive}> */}
+
+      <View style={styles.header}>
+        <Text style={styles.linkText}>Link 1</Text>
+        <Text style={styles.linkText}>Link 2</Text>
+        <View style={styles.profile_name}>
+          <Image
+            style={styles.profile_image}
+            source={require("./assets/images/profile_image.jpg")}
+          ></Image>
+          <Text adjustsFontSizeToFit style={styles.text_main_info}>
+            Prateek Shetty
+          </Text>
+        </View>
+        <TouchableOpacity onPress={navigateToSkills}>
+          <Text style={styles.linkText}>SKILLS</Text>
+        </TouchableOpacity>
+        <Text style={styles.linkText}>ACHIEVEMENTS</Text>
       </View>
-      <View style={{ gap: 75 }}>
-        <View />
-        <View />
-      </View>
-      <View style={styles.view_description}>
-        <Text style={styles.text_description}>
-          Heyyy!! I am Prateek Shetty, a 2023 CSE graduate from PES University.
-          I am currently working as a Junior Devops Engineer in EOX Vantage. I'm
-          a passionate tech enthusiast on a journey to transform ideas into
-          digital realities. As a software engineer, problem solver, and
-          lifelong learner, I thrive on the endless possibilities of technology.
-          Welcome to my portfolio, where I showcase my adventures in code,
-          design, and innovation.
-        </Text>
-      </View>
-      <View style={styles.view_description}>
-        <Text style={styles.text_description}>Skills</Text>
-      </View>
-      <View style={styles.view_description}>
-        <Text style={styles.text_description}>Projects</Text>
-      </View>
-      <View style={styles.view_description}>
-        <Text style={styles.text_description}>Achievements</Text>
+
+      <View style={styles.container}>
+        <View style={styles.view_description}>
+          <Text style={styles.text_description}>Hey!!!</Text>
+          <Text style={styles.text_description2}>Prateek here.</Text>
+          <Text style={styles.text_description3}>
+            I'm a 2023 Computer Science graduate from PES University. As a
+            Junior DevOps Engineer, I blend code and infrastructure to build
+            seamless solutions. Beyond tech, you'll find me on the football
+            field, chasing goals and living the beautiful game.
+          </Text>
+        </View>
       </View>
 
       <View style={[styles.footer]}>
@@ -85,17 +93,39 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
   },
+  container: {
+    // flexDirection: "row",
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    zIndex: 1,
+    alignItems: "center",
+    justifyContent: "space-between", // Pushes footer to the bottom
+  },
 
   footer: {
     alignSelf: "stretch",
     alignItems: "center",
     backgroundColor: "black",
     bottom: 0,
-    zIndex: 0,
+    zIndex: 1,
     height: 50,
-
+    marginTop: 20,
     flexDirection: "row",
     justifyContent: "center",
+  },
+
+  header: {
+    alignSelf: "stretch",
+    alignItems: "center",
+    // backgroundColor: "black",
+    zIndex: 1,
+    position: "sticky",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 16, // Adjust as needed
+    paddingVertical: 8, // Adjust as needed
+    marginBottom: 20, // Adjust as needed
   },
 
   header_active: {
@@ -114,6 +144,7 @@ const styles = StyleSheet.create({
     position: "sticky",
     top: 0,
     zIndex: 1,
+    marginBottom: 0,
   },
 
   icons: {
@@ -121,29 +152,67 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 20,
   },
+  linkText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#FB9038", // Replace with your text color
+    marginRight: 10, // Adjust spacing between links
+  },
+  pdfContainer: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  pdf: {
+    flex: 1,
+    width: "100%",
+  },
   profile_image: {
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
+    width: 150,
+    height: 150,
+    borderRadius: 150 / 2,
+  },
+  profile_name: {
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   text_description: {
     color: "white",
-    fontSize: 20,
-    flex: 0.5,
-    padding: 50,
+    fontSize: 30,
+    fontFamily: "Merriweather_BI",
+    justifyContent: "center",
+    alignItems: "center",
   },
+  text_description2: {
+    color: "#FB9038",
+    fontSize: 40,
+    fontFamily: "Merriweather_BI",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text_description3: {
+    color: "white",
+    fontSize: 30,
+    fontFamily: "Roboto-T",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   text_main_info: {
     color: "white",
-    fontSize: 20,
+    fontSize: 30,
   },
   view_description: {
     width: "75%",
-    height: 400,
-    borderRadius: 50 / 2,
+    height: "100%",
+    flex: 1,
     alignContent: "center",
-    backgroundColor: "black",
-    opacity: 0.8,
-    margin: 2,
+    // backgroundColor: "black",
+    // opacity: 0.8,
+    zIndex: 1,
+    padding: "10%",
   },
 });
 
