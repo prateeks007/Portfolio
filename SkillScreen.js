@@ -6,69 +6,68 @@ import {
   StyleSheet,
   Image,
   FlatList,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from "react-native";
+import { useState } from "react";
+
 import { FaLinkedinIn } from "react-icons/fa";
 import { AiFillGithub } from "react-icons/ai";
-
-const SkillCard = ({ skill }) => {
-  const { name, logo, description } = skill;
-
-  return (
-    <View style={styles.card}>
-      <Image source={logo} style={styles.logo} />
-      <Text style={styles.skillName}>{name}</Text>
-      <Text style={styles.description}>{description}</Text>
-    </View>
-  );
-};
 
 const SkillScreen = () => {
   const skills = [
     {
       name: "Python",
       logo: require("./assets/images/profile_image.jpg"),
-      description:
-        "Python is a versatile programming language known for its simplicity...",
     },
     // Add more skills here in the same format
     {
       name: "Docker",
       logo: require("./assets/images/profile_image.jpg"),
-      description:
-        "Docker is a containerization application which bundles your application wiht required dependencies.",
     },
     {
-      name: "Test",
+      name: "Github Actions",
       logo: require("./assets/images/profile_image.jpg"),
-      description: "hjsdoijhsdoijjojoiasdjoad",
     },
     {
-      name: "Test",
+      name: "Burp Suite",
       logo: require("./assets/images/profile_image.jpg"),
-      description: "hjsdoijhsdoijjojoiasdjoad",
     },
     {
-      name: "Test",
+      name: "CircleCI",
       logo: require("./assets/images/profile_image.jpg"),
-      description: "hjsdoijhsdoijjojoiasdjoad",
     },
     {
-      name: "Test",
+      name: "Jenkins",
       logo: require("./assets/images/profile_image.jpg"),
-      description: "hjsdoijhsdoijjojoiasdjoad",
     },
     {
-      name: "Test",
+      name: "Kubernetes",
       logo: require("./assets/images/profile_image.jpg"),
-      description: "hjsdoijhsdoijjojoiasdjoad",
     },
   ];
-  const renderSkillCard = ({ item }) => (
-    <View style={styles.card}>
-      <Image source={item.logo} style={styles.logo} />
-      <Text style={styles.skillName}>{item.name}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-    </View>
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const handleMouseEnter = (index) => {
+    setHoveredIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+  };
+  const renderSkillCard = ({ item, index }) => (
+    <TouchableOpacity
+      style={[styles.card, index === hoveredIndex && styles.hoveredCard]}
+      onMouseEnter={() => handleMouseEnter(index)}
+      onMouseLeave={handleMouseLeave}
+    >
+      <View style={styles.card}>
+        <Image source={item.logo} style={styles.logo} />
+        <Text style={styles.skillName}>{item.name}</Text>
+        {/* <Text style={styles.description}>{item.description}</Text> */}
+      </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -183,30 +182,40 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 20,
+    overflow: "hidden",
+    borderRadius: 200,
+    width: 300,
+    height: 300,
     margin: 10,
-    width: 150, // Adjust the width as needed
-    height: 200, // Adjust the height as needed
+    backgroundColor: "transparent",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    shadowOpacity: 0.2,
+    // shadowRadius: 5,
+    transition: "transform 0.3s, backgroundColor 0.3s", // Smooth transition on hover
   },
+  hoveredCard: {
+    transform: [{ scale: 1.05 }], // Slightly scale up on hover
+    backgroundColor: "#FB9038", // Set the hover color to #FB9038
+    opacity: 0.7,
+  },
+  cardWrapper: {
+    margin: 10,
+  },
+
   logo: {
-    width: 50,
-    height: 50,
+    width: 200,
+    height: 200,
+    borderRadius: 200 / 2,
     resizeMode: "contain",
     alignSelf: "center",
     marginBottom: 10,
   },
   skillName: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 5,

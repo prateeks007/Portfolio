@@ -7,6 +7,7 @@ import {
   Text,
   Animated,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
@@ -24,10 +25,26 @@ function MainScreen(props) {
   };
   window.addEventListener("scroll", changeOpacity);
 
+  const resumeUri = require("./assets/resume/Resume_Prateek Shetty.pdf");
+  const handleOpenResume = async () => {
+    // Use Linking to open the resume file
+    const supported = await Linking.canOpenURL(resumeUri);
+
+    if (supported) {
+      await Linking.openURL(resumeUri);
+    } else {
+      console.error("Don't know how to open URI: " + resumeUri);
+    }
+  };
   const navigation = useNavigation();
   const navigateToSkills = () => {
     navigation.navigate("Skills"); // Navigate to the Skills screen
   };
+
+  // const navigateToResume = () => {
+  //   navigation.navigate("Resume"); // Navigate to the Resume screen
+  // };
+
   return (
     <ImageBackground
       style={styles.background}
@@ -36,12 +53,15 @@ function MainScreen(props) {
       {/* <View style={header ? styles.header_active : styles.header_inactive}> */}
 
       <View style={styles.header}>
-        <Text style={styles.linkText}>Link 1</Text>
-        <Text style={styles.linkText}>Link 2</Text>
+        <Text style={styles.linkText}>EXPERIENCE</Text>
+
+        <TouchableOpacity onPress={handleOpenResume}>
+          <Text style={styles.linkText}>RESUME</Text>
+        </TouchableOpacity>
         <View style={styles.profile_name}>
           <Image
             style={styles.profile_image}
-            source={require("./assets/images/profile_image.jpg")}
+            source={require("./assets/images/self_profile_image.jpg")}
           ></Image>
           <Text adjustsFontSizeToFit style={styles.text_main_info}>
             Prateek Shetty
@@ -170,9 +190,9 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   profile_image: {
-    width: 150,
-    height: 150,
-    borderRadius: 150 / 2,
+    width: 200,
+    height: 200,
+    borderRadius: 200 / 2,
   },
   profile_name: {
     alignItems: "center",
