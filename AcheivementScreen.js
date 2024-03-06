@@ -1,5 +1,12 @@
-import React from "react";
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 const AchievementScreen = () => {
   const achievements = [
@@ -8,6 +15,16 @@ const AchievementScreen = () => {
     "Achievement 3: Description of achievement 3.",
     // Add more achievements as needed
   ];
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const handleMouseEnter = (index) => {
+    setHoveredIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+  };
 
   return (
     <ImageBackground
@@ -20,9 +37,21 @@ const AchievementScreen = () => {
 
           {/* Displaying achievements as a simple list */}
           {achievements.map((achievement, index) => (
-            <View key={index} style={styles.achievementItem}>
-              <Text style={styles.achievementText}>{achievement}</Text>
-            </View>
+            <TouchableOpacity
+              key={index}
+              onPress={() => {}}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={handleMouseLeave}
+            >
+              <View
+                style={[
+                  styles.achievementItem,
+                  index === hoveredIndex && styles.highlightedItem,
+                ]}
+              >
+                <Text style={styles.achievementText}>{achievement}</Text>
+              </View>
+            </TouchableOpacity>
           ))}
         </View>
       </View>
@@ -60,7 +89,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   achievementItem: {
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    borderRadius: 10,
+    padding: 15,
     marginVertical: 10,
+    width: "80%",
+    alignSelf: "center",
+    transition: "transform 0.3s, backgroundColor 0.3s", // Smooth transition on hover
+  },
+  highlightedItem: {
+    backgroundColor: "#FB9038", // Highlight color
+    transform: [{ scale: 1.05 }],
+    opacity: 0.7,
   },
   achievementText: {
     fontSize: 16,
