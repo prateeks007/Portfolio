@@ -12,38 +12,42 @@ import {
 import { useState } from "react";
 
 import { FaLinkedinIn } from "react-icons/fa";
+import { FaPython } from "react-icons/fa";
+
 import { AiFillGithub } from "react-icons/ai";
+
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 const SkillScreen = () => {
   const skills = [
     {
       name: "Python",
-      logo: require("./assets/images/profile_image.jpg"),
+      logo: FaPython,
+      iconName: "python",
     },
-    // Add more skills here in the same format
     {
       name: "Docker",
-      logo: require("./assets/images/profile_image.jpg"),
+      iconName: "docker",
     },
     {
       name: "Github Actions",
-      logo: require("./assets/images/profile_image.jpg"),
+      iconName: "github",
     },
     {
       name: "Burp Suite",
-      logo: require("./assets/images/profile_image.jpg"),
+      iconName: "bug",
     },
     {
       name: "CircleCI",
-      logo: require("./assets/images/profile_image.jpg"),
+      iconName: "sync",
     },
     {
       name: "Jenkins",
-      logo: require("./assets/images/profile_image.jpg"),
+      iconName: "jenkins",
     },
     {
       name: "Kubernetes",
-      logo: require("./assets/images/profile_image.jpg"),
+      iconName: "cube",
     },
   ];
 
@@ -63,7 +67,12 @@ const SkillScreen = () => {
       onMouseLeave={handleMouseLeave}
     >
       <View style={styles.card}>
-        <Image source={item.logo} style={styles.logo} />
+        <Icon
+          name={item.iconName}
+          size={50}
+          color="white"
+          style={styles.logo}
+        />
         <Text style={styles.skillName}>{item.name}</Text>
         {/* <Text style={styles.description}>{item.description}</Text> */}
       </View>
@@ -207,10 +216,10 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 200,
-    height: 200,
-    borderRadius: 200 / 2,
-    resizeMode: "contain",
+    width: 100,
+    height: 100,
+    borderRadius: 100 / 2,
+    justifyContent: "center",
     alignSelf: "center",
     marginBottom: 10,
   },

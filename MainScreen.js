@@ -41,9 +41,9 @@ function MainScreen(props) {
     navigation.navigate("Skills"); // Navigate to the Skills screen
   };
 
-  // const navigateToResume = () => {
-  //   navigation.navigate("Resume"); // Navigate to the Resume screen
-  // };
+  const navigateToAchievements = () => {
+    navigation.navigate("Achievements"); // Navigate to the Resume screen
+  };
 
   return (
     <ImageBackground
@@ -70,7 +70,9 @@ function MainScreen(props) {
         <TouchableOpacity onPress={navigateToSkills}>
           <Text style={styles.linkText}>SKILLS</Text>
         </TouchableOpacity>
-        <Text style={styles.linkText}>ACHIEVEMENTS</Text>
+        <TouchableOpacity onPress={navigateToAchievements}>
+          <Text style={styles.linkText}>ACHIEVEMENTS</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.container}>

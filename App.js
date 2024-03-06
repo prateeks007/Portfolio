@@ -3,6 +3,7 @@ import SkillScreen from "./SkillScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
+import AchievementScreen from "./AcheivementScreen";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Skills" component={SkillScreen} />
+        <Stack.Screen name="Achievements" component={AchievementScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
