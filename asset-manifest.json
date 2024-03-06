@@ -1,14 +1,16 @@
 {
   "files": {
-    "main.js": "/Portfolio/static/js/main.fb649176.js",
-    "static/js/843.271c23b1.js": "/Portfolio/static/js/843.271c23b1.js",
+    "main.js": "/Portfolio/static/js/main.97b7503c.js",
+    "static/js/839.ff1b6aa3.js": "/Portfolio/static/js/839.ff1b6aa3.js",
     "static/media/self_profile_image.jpg": "/Portfolio/static/media/self_profile_image.a04f5e1c1ee8e71291f0.jpg",
-    "static/media/profile_image.jpg": "/Portfolio/static/media/profile_image.d24e48960be30da249d9.jpg",
+    "static/media/FontAwesome5_Solid.ttf": "/Portfolio/static/media/FontAwesome5_Solid.07c3313b24f7b1ca85ee.ttf",
     "static/media/BeautifulPeoplePersonalUse-dE0g.ttf": "/Portfolio/static/media/BeautifulPeoplePersonalUse-dE0g.17efd45acf38dcea2253.ttf",
     "static/media/Resume_Prateek Shetty.pdf": "/Portfolio/static/media/Resume_Prateek Shetty.06361ee9b5b7394f1edd.pdf",
     "static/media/Roboto-Thin.ttf": "/Portfolio/static/media/Roboto-Thin.a732a12eb07742232407.ttf",
     "static/media/Roboto-Light.ttf": "/Portfolio/static/media/Roboto-Light.333da16a3f3cc391d087.ttf",
     "static/media/Merriweather-LightItalic.ttf": "/Portfolio/static/media/Merriweather-LightItalic.7156ba6851d2a94064dd.ttf",
+    "static/media/FontAwesome5_Brands.ttf": "/Portfolio/static/media/FontAwesome5_Brands.9e138496e8f1719c6ebf.ttf",
+    "static/media/FontAwesome5_Regular.ttf": "/Portfolio/static/media/FontAwesome5_Regular.1017bce89c72f95bcf8e.ttf",
     "static/media/solid-color-image.jpeg": "/Portfolio/static/media/solid-color-image.a3934284911a0b2f22d6.jpeg",
     "favicon.ico": "/Portfolio/favicon.ico",
     "index.html": "/Portfolio/index.html",
@@ -16,11 +18,11 @@
     "favicon-16.png": "/Portfolio/favicon-16.png",
     "serve.json": "/Portfolio/serve.json",
     "manifest.json": "/Portfolio/manifest.json",
-    "main.fb649176.js.map": "/Portfolio/static/js/main.fb649176.js.map",
-    "843.271c23b1.js.map": "/Portfolio/static/js/843.271c23b1.js.map"
+    "main.97b7503c.js.map": "/Portfolio/static/js/main.97b7503c.js.map",
+    "839.ff1b6aa3.js.map": "/Portfolio/static/js/839.ff1b6aa3.js.map"
   },
   "entrypoints": [
-    "static/js/843.271c23b1.js",
-    "static/js/main.fb649176.js"
+    "static/js/839.ff1b6aa3.js",
+    "static/js/main.97b7503c.js"
   ]
 }
