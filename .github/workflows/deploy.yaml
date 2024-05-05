@@ -15,4 +15,6 @@ jobs:
       # Add your desired steps here
       - name: Run a script
         run: |
+          npm install expo-cli --save-dev
+
           npm run deploy
