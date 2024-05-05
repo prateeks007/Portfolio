@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/Portfolio/static/js/main.48accda1.js",
+    "main.js": "/Portfolio/static/js/main.63cf3c1e.js",
     "static/js/839.ff1b6aa3.js": "/Portfolio/static/js/839.ff1b6aa3.js",
-    "static/media/self_profile_image.jpg": "/Portfolio/static/media/self_profile_image.a04f5e1c1ee8e71291f0.jpg",
+    "static/media/self_profile_image.jpg": "/Portfolio/static/media/self_profile_image.7374d6cf3b53a03532ce.jpg",
     "static/media/FontAwesome5_Solid.ttf": "/Portfolio/static/media/FontAwesome5_Solid.07c3313b24f7b1ca85ee.ttf",
     "static/media/BeautifulPeoplePersonalUse-dE0g.ttf": "/Portfolio/static/media/BeautifulPeoplePersonalUse-dE0g.17efd45acf38dcea2253.ttf",
     "static/media/Resume_Prateek Shetty.pdf": "/Portfolio/static/media/Resume_Prateek Shetty.06361ee9b5b7394f1edd.pdf",
@@ -18,11 +18,11 @@
     "favicon-16.png": "/Portfolio/favicon-16.png",
     "serve.json": "/Portfolio/serve.json",
     "manifest.json": "/Portfolio/manifest.json",
-    "main.48accda1.js.map": "/Portfolio/static/js/main.48accda1.js.map",
+    "main.63cf3c1e.js.map": "/Portfolio/static/js/main.63cf3c1e.js.map",
     "839.ff1b6aa3.js.map": "/Portfolio/static/js/839.ff1b6aa3.js.map"
   },
   "entrypoints": [
     "static/js/839.ff1b6aa3.js",
-    "static/js/main.48accda1.js"
+    "static/js/main.63cf3c1e.js"
   ]
 }
