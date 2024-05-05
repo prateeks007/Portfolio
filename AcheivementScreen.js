@@ -5,14 +5,47 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  TouchableWithoutFeedback,
 } from "react-native";
 
 const AchievementScreen = () => {
   const achievements = [
-    "Achievement 1: Description of achievement 1.",
-    "Achievement 2: Description of achievement 2.",
-    "Achievement 3: Description of achievement 3.",
+    {
+      achievement: "Winner of NetApp Hackathon from PES University.",
+      date: "OCT 2022",
+    },
+    {
+      achievement:
+        "One of the top 400 winners in Meta Global Hackathon out of 3000+ participants.",
+      date: "SEP 2022",
+    },
+    {
+      achievement:
+        "Qualified for the prototyping round of Zoho Creator Build an App Challenge on Hackerearth.",
+      date: "AUG 2022",
+    },
+    {
+      achievement: "Cleared the qualification round of Google Code Jam.",
+      date: "APR 2022",
+    },
+    {
+      achievement:
+        "Global Rank: 157 in February Long 2022 - II, Division 3 on Codechef.",
+      date: "FEB 2022",
+    },
+    {
+      achievement: "Successfully completed Hacktoberfest 2020.",
+      date: "OCT 2022",
+    },
+    {
+      achievement:
+        "Led a team of 6 members and stood first among 30+ teams in an ideathon held by my university, for creating a simple prototype for a portable bottle capable of producing drinkable water on the go.",
+      date: "AUG 2019",
+    },
+    {
+      achievement:
+        "TechnoSpark, SDIT, stood first among 200+ teams by leading a team of 4 members and developing a model to replace inefficient road transportation vehicles by a proposed electric vehicle thus reducing the loss per annum to a nation’s economy.",
+      date: "JUL 2018",
+    },
     // Add more achievements as needed
   ];
 
@@ -49,7 +82,12 @@ const AchievementScreen = () => {
                   index === hoveredIndex && styles.highlightedItem,
                 ]}
               >
-                <Text style={styles.achievementText}>{achievement}</Text>
+                <View style={styles.achievementContent}>
+                  <Text style={styles.achievementText}>
+                    {achievement.achievement}
+                  </Text>
+                  <Text style={styles.dateText}>{achievement.date}</Text>
+                </View>
               </View>
             </TouchableOpacity>
           ))}
@@ -102,9 +140,24 @@ const styles = StyleSheet.create({
     transform: [{ scale: 1.05 }],
     opacity: 0.7,
   },
+  achievementContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 10, // Add padding horizontally between achievement and date
+    marginBottom: 5, // Add margin vertically between achievements
+  },
   achievementText: {
-    fontSize: 16,
+    flex: 1,
+    fontSize: 20,
     textAlign: "justify",
+    fontFamily: "Roboto-T",
+  },
+  dateText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "right",
+    marginLeft: 10, // Add margin between achievement text and date
   },
 });
 

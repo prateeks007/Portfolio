@@ -7,22 +7,15 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  TouchableWithoutFeedback,
+  Dimensions,
 } from "react-native";
 import { useState } from "react";
-
-import { FaLinkedinIn } from "react-icons/fa";
-import { FaPython } from "react-icons/fa";
-
-import { AiFillGithub } from "react-icons/ai";
-
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const SkillScreen = () => {
   const skills = [
     {
       name: "Python",
-      logo: FaPython,
       iconName: "python",
     },
     {
@@ -60,21 +53,33 @@ const SkillScreen = () => {
   const handleMouseLeave = () => {
     setHoveredIndex(null);
   };
+
+  const calculateCardSize = () => {
+    // Calculate the width based on the screen width
+    const screenWidth = Dimensions.get("window").width;
+    // Calculate the card size based on the screen width and number of columns
+    const cardSize = (screenWidth - 40) / 3 - 20; // Subtracting 40 for margins and 20 for card padding
+    return cardSize; // Return the calculated card size
+  };
+
   const renderSkillCard = ({ item, index }) => (
     <TouchableOpacity
-      style={[styles.card, index === hoveredIndex && styles.hoveredCard]}
+      style={[
+        styles.card,
+        { width: calculateCardSize(), height: calculateCardSize() },
+        index === hoveredIndex && styles.hoveredCard,
+      ]}
       onMouseEnter={() => handleMouseEnter(index)}
       onMouseLeave={handleMouseLeave}
     >
       <View style={styles.card}>
         <Icon
           name={item.iconName}
-          size={50}
+          size={40}
           color="white"
           style={styles.logo}
         />
         <Text style={styles.skillName}>{item.name}</Text>
-        {/* <Text style={styles.description}>{item.description}</Text> */}
       </View>
     </TouchableOpacity>
   );
@@ -97,30 +102,12 @@ const SkillScreen = () => {
             <FlatList
               data={skills}
               renderItem={renderSkillCard}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item, index) => index.toString()}
               numColumns={3}
               contentContainerStyle={styles.container}
             />
           </View>
         </View>
-      </View>
-
-      <View style={[styles.footer]}>
-        <a
-          style={styles.icons}
-          target="_blank"
-          href="https://linkedin.com/in/prateek-shetty-7375031a6/"
-        >
-          <FaLinkedinIn />
-        </a>
-
-        <a
-          href="https://github.com/prateeks007"
-          style={styles.icons}
-          target="_blank"
-        >
-          <AiFillGithub />
-        </a>
       </View>
     </ImageBackground>
   );
@@ -133,25 +120,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   maincontainer: {
-    // flexDirection: "row",
     width: "100%",
     height: "100%",
     flex: 1,
-    paddingVertical: 20,
-    // backgroundColor: "#f0f0f0",
     alignItems: "center",
-
-    padding: 20,
-
-    //     justifyContent: "center",
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center", // Aligns rows of cards vertically
-    alignItems: "center", // Aligns cards horizontally
     paddingVertical: 20,
     paddingHorizontal: 10,
-    // backgroundColor: "yellow",
+  },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: "10%",
+    paddingHorizontal: "10%",
+    maxWidth: "100%", // Ensure content does not exceed the screen width
   },
   text_description2: {
     color: "#FB9038",
@@ -161,77 +142,42 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
   },
-  footer: {
-    alignSelf: "stretch",
-    alignItems: "center",
-    backgroundColor: "black",
-    bottom: 0,
-    zIndex: 1,
-    height: 50,
-    marginTop: 20,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  icons: {
-    color: "white",
-    margin: 10,
-    fontSize: 20,
-  },
   view_description: {
     width: "100%",
     height: "100%",
     flex: 1,
     alignContent: "center",
-    // backgroundColor: "black",
-    // opacity: 0.8,
     justifyContent: "center",
-
     zIndex: 1,
     padding: "10%",
+    maxWidth: "100%", // Ensure content does not exceed the screen width
   },
-
   card: {
-    overflow: "hidden",
-    borderRadius: 200,
-    width: 300,
-    height: 300,
+    // borderRadius: "50%",
+
     margin: 10,
     backgroundColor: "transparent",
     shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
     shadowOpacity: 0.2,
-    // shadowRadius: 5,
-    transition: "transform 0.3s, backgroundColor 0.3s", // Smooth transition on hover
+    transition: "transform 0.3s, backgroundColor 0.3s",
+    justifyContent: "center",
+    alignItems: "center",
+    maxWidth: "100%", // Each card takes up 100% of the available space
   },
   hoveredCard: {
-    transform: [{ scale: 1.05 }], // Slightly scale up on hover
-    backgroundColor: "#FB9038", // Set the hover color to #FB9038
+    transform: [{ scale: 1.05 }],
+    // backgroundColor: "#FB9038",
     opacity: 0.7,
   },
-  cardWrapper: {
-    margin: 10,
-  },
-
   logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
-    justifyContent: "center",
-    alignSelf: "center",
-    marginBottom: 10,
+    marginBottom: 5,
   },
   skillName: {
-    fontSize: 20,
+    fontSize: 12,
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 5,
   },
-  description: {
-    fontSize: 14,
-    textAlign: "justify",
-  },
 });
+
 export default SkillScreen;
