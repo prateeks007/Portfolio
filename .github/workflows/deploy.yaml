@@ -16,7 +16,7 @@ jobs:
       - name: Run a script
         run: |
           git config user.email "prateekshettybdmi@gmail.com"
-          git config user.name "Prateek"
+          git config user.name "prateeks007"
 
           npm install expo-cli --save-dev
 
