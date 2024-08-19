@@ -20,7 +20,8 @@ jobs:
 
           git config --get remote.origin.url
 
-          git config remote.origin.url "https://${{ secrets.GH_TOKEN }}@github.com/Portfolio"
+          git config remote.origin.url "https://${{ secrets.GHPAT }}@github.com/prateeks007/Portfolio.git"
+
 
           git config --get remote.origin.url
 
