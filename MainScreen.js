@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   linkText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#FB9038", // Replace with your text color
+    color: "#FB9038", // Replace with required text color
     marginRight: 10, // Adjust spacing between links
   },
   pdfContainer: {
