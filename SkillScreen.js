@@ -1,182 +1,278 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
-  ImageBackground,
   StyleSheet,
-  Image,
-  FlatList,
-  TouchableOpacity,
+  ScrollView,
   Dimensions,
+  ImageBackground,
+  TouchableOpacity,
+  Animated,
 } from "react-native";
-import { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-const SkillScreen = () => {
-  const skills = [
-    {
-      name: "Python",
-      iconName: "python",
-    },
-    {
-      name: "Docker",
-      iconName: "docker",
-    },
-    {
-      name: "Github Actions",
-      iconName: "github",
-    },
-    {
-      name: "Burp Suite",
-      iconName: "bug",
-    },
-    {
-      name: "CircleCI",
-      iconName: "sync",
-    },
-    {
-      name: "Jenkins",
-      iconName: "jenkins",
-    },
-    {
-      name: "Kubernetes",
-      iconName: "cube",
-    },
-  ];
+const SkillItem = ({ skill }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const animatedScale = new Animated.Value(1);
 
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  const handleMouseEnter = (index) => {
-    setHoveredIndex(index);
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+    Animated.spring(animatedScale, {
+      toValue: isExpanded ? 1 : 1.1,
+      friction: 3,
+      useNativeDriver: true,
+    }).start();
   };
 
-  const handleMouseLeave = () => {
-    setHoveredIndex(null);
-  };
-
-  const calculateCardSize = () => {
-    // Calculate the width based on the screen width
-    const screenWidth = Dimensions.get("window").width;
-    // Calculate the card size based on the screen width and number of columns
-    const cardSize = (screenWidth - 40) / 3 - 20; // Subtracting 40 for margins and 20 for card padding
-    return cardSize; // Return the calculated card size
-  };
-
-  const renderSkillCard = ({ item, index }) => (
-    <TouchableOpacity
-      style={[
-        styles.card,
-        { width: calculateCardSize(), height: calculateCardSize() },
-        index === hoveredIndex && styles.hoveredCard,
-      ]}
-      onMouseEnter={() => handleMouseEnter(index)}
-      onMouseLeave={handleMouseLeave}
-    >
-      <View style={styles.card}>
-        <Icon
-          name={item.iconName}
-          size={40}
-          color="white"
-          style={styles.logo}
-        />
-        <Text style={styles.skillName}>{item.name}</Text>
-      </View>
+  return (
+    <TouchableOpacity onPress={toggleExpand} style={styles.skillItem}>
+      <Animated.View
+        style={[
+          styles.iconContainer,
+          { transform: [{ scale: animatedScale }] },
+        ]}
+      >
+        <Icon name={skill.icon} size={40} color={skill.color} />
+      </Animated.View>
+      <Text style={styles.skillName}>{skill.name}</Text>
+      {isExpanded && skill.description && (
+        <Text style={styles.skillDescription}>{skill.description}</Text>
+      )}
     </TouchableOpacity>
   );
+};
+
+const SkillScreen = () => {
+  const skillCategories = [
+    {
+      category: "Programming Languages",
+      skills: [
+        {
+          name: "Python",
+          icon: "python",
+          color: "#3776AB",
+          description:
+            "Proficient in Python for web development and scripting.",
+        },
+        {
+          name: "JavaScript",
+          icon: "js-square",
+          color: "#F7DF1E",
+          description:
+            "Experienced in both frontend and backend JavaScript development.",
+        },
+        {
+          name: "Ruby",
+          icon: "gem",
+          color: "#CC342D",
+          description: "Familiar with Ruby for web applications.",
+        },
+      ],
+    },
+    {
+      category: "Web Technologies",
+      skills: [
+        {
+          name: "React",
+          icon: "react",
+          color: "#61DAFB",
+          description:
+            "Skilled in building responsive and interactive UIs with React.",
+        },
+        {
+          name: "Node.js",
+          icon: "node-js",
+          color: "#339933",
+          description: "Experienced in server-side JavaScript with Node.js.",
+        },
+        {
+          name: "HTML5",
+          icon: "html5",
+          color: "#E34F26",
+          description: "Proficient in modern HTML5 markup.",
+        },
+        {
+          name: "CSS3",
+          icon: "css3-alt",
+          color: "#1572B6",
+          description: "Skilled in CSS3 for styling and responsive design.",
+        },
+      ],
+    },
+    {
+      category: "DevOps & Cloud",
+      skills: [
+        {
+          name: "Docker",
+          icon: "docker",
+          color: "#2496ED",
+          description: "Experienced in containerization with Docker.",
+        },
+        {
+          name: "Kubernetes",
+          icon: "dharmachakra",
+          color: "#326CE5",
+          description:
+            "Familiar with container orchestration using Kubernetes.",
+        },
+        {
+          name: "Jenkins",
+          icon: "jenkins",
+          color: "#D24939",
+          description: "Skilled in CI/CD pipelines with Jenkins.",
+        },
+        {
+          name: "Git",
+          icon: "git-alt",
+          color: "#F05032",
+          description: "Proficient in version control with Git.",
+        },
+        {
+          name: "CircleCI",
+          icon: "circle",
+          color: "#343434",
+          description: "Experienced in CI/CD with CircleCI.",
+        },
+        {
+          name: "GitHub Actions",
+          icon: "github",
+          color: "#2088FF",
+          description: "Familiar with GitHub Actions for workflow automation.",
+        },
+      ],
+    },
+    {
+      category: "Databases",
+      skills: [
+        {
+          name: "MySQL",
+          icon: "database",
+          color: "#4479A1",
+          description: "Experienced in MySQL database management.",
+        },
+        {
+          name: "PostgreSQL",
+          icon: "database",
+          color: "#336791",
+          description: "Familiar with PostgreSQL for relational databases.",
+        },
+      ],
+    },
+    {
+      category: "Security",
+      skills: [
+        {
+          name: "Burp Suite",
+          icon: "bug",
+          color: "#FF6633",
+          description:
+            "Skilled in web application security testing with Burp Suite.",
+        },
+        {
+          name: "ZAP",
+          icon: "shield-alt",
+          color: "#5B69BC",
+          description: "Experienced in using OWASP ZAP for security testing.",
+        },
+        {
+          name: "Metasploit",
+          icon: "user-secret",
+          color: "#2A6478",
+          description: "Familiar with Metasploit for penetration testing.",
+        },
+      ],
+    },
+    {
+      category: "Other Tools",
+      skills: [
+        {
+          name: "EFK Stack",
+          icon: "search",
+          color: "#005571",
+          description:
+            "Skilled in log management and analysis with EFK (Elasticsearch, Fluentd, Kibana) Stack.",
+        },
+      ],
+    },
+  ];
 
   return (
     <ImageBackground
       style={styles.background}
       source={require("./assets/images/solid-color-image.jpeg")}
     >
-      <View style={styles.maincontainer}>
-        <View style={styles.view_description}>
-          <Text style={styles.text_description2}>
-            Welcome to my skills page! Here, I'm sharing my ongoing journey of
-            learning and mastering various skills. This space is constantly
-            evolving as I explore new domains and enhance my expertise. Stay
-            tuned for the latest updates!
-          </Text>
-          {/* Displaying skills here */}
-          <View>
-            <FlatList
-              data={skills}
-              renderItem={renderSkillCard}
-              keyExtractor={(item, index) => index.toString()}
-              numColumns={3}
-              contentContainerStyle={styles.container}
-            />
+      <ScrollView style={styles.container}>
+        <Text style={styles.header}>Skills & Technologies</Text>
+        {skillCategories.map((category, index) => (
+          <View key={index} style={styles.categoryContainer}>
+            <Text style={styles.categoryTitle}>{category.category}</Text>
+            <View style={styles.skillsGrid}>
+              {category.skills.map((skill, skillIndex) => (
+                <SkillItem key={skillIndex} skill={skill} />
+              ))}
+            </View>
           </View>
-        </View>
-      </View>
+        ))}
+      </ScrollView>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    alignItems: "center",
-    position: "relative",
     flex: 1,
-  },
-  maincontainer: {
-    width: "100%",
-    height: "100%",
-    flex: 1,
-    alignItems: "center",
-    paddingVertical: 20,
-    paddingHorizontal: 10,
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: "10%",
-    paddingHorizontal: "10%",
-    maxWidth: "100%", // Ensure content does not exceed the screen width
-  },
-  text_description2: {
-    color: "#FB9038",
-    fontSize: 20,
-    fontFamily: "Roboto-T",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-  },
-  view_description: {
-    width: "100%",
-    height: "100%",
     flex: 1,
-    alignContent: "center",
-    justifyContent: "center",
-    zIndex: 1,
-    padding: "10%",
-    maxWidth: "100%", // Ensure content does not exceed the screen width
+    padding: 16,
   },
-  card: {
-    // borderRadius: "50%",
-
-    margin: 10,
-    backgroundColor: "transparent",
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    transition: "transform 0.3s, backgroundColor 0.3s",
-    justifyContent: "center",
+  header: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#FB9038",
+    marginBottom: 24,
+    textAlign: "center",
+    fontFamily: "Roboto-T", // Main heading now uses Roboto
+  },
+  categoryContainer: {
+    marginBottom: 24,
+  },
+  categoryTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#FB9038",
+    marginBottom: 12,
+    fontFamily: "Merriweather_BI", // Subheadings now use Merriweather
+  },
+  skillsGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+  },
+  skillItem: {
+    width: "33.33%",
     alignItems: "center",
-    maxWidth: "100%", // Each card takes up 100% of the available space
+    marginBottom: 16,
+    padding: 8,
   },
-  hoveredCard: {
-    transform: [{ scale: 1.05 }],
-    // backgroundColor: "#FB9038",
-    opacity: 0.7,
-  },
-  logo: {
-    marginBottom: 5,
+  iconContainer: {
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderRadius: 50,
+    padding: 12,
+    marginBottom: 8,
   },
   skillName: {
-    fontSize: 12,
-    fontWeight: "bold",
+    color: "#D0D0D0",
     textAlign: "center",
-    marginBottom: 5,
+    fontFamily: "Roboto-L",
+    marginBottom: 4,
+  },
+  skillDescription: {
+    color: "#A0A0A0",
+    textAlign: "center",
+    fontFamily: "Roboto-L",
+    fontSize: 12,
+    paddingHorizontal: 4,
   },
 });
 

@@ -5,44 +5,31 @@ import {
   View,
   Image,
   Text,
-  Animated,
   TouchableOpacity,
   Linking,
+  Dimensions,
 } from "react-native";
-import { useState, useEffect } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 import { AiFillGithub } from "react-icons/ai";
 import { useNavigation } from "@react-navigation/native";
 
+const windowWidth = Dimensions.get("window").width;
+
 function MainScreen(props) {
-  const [header, setHeader] = useState(false);
-  const changeOpacity = () => {
-    if (window.scrollY >= 100) {
-      setHeader(true);
-    } else {
-      setHeader(false);
-    }
-  };
-  window.addEventListener("scroll", changeOpacity);
+  const navigation = useNavigation();
 
   const resumeUri = require("./assets/resume/Resume_Prateek Shetty.pdf");
   const handleOpenResume = async () => {
-    // Use Linking to open the resume file
     const supported = await Linking.canOpenURL(resumeUri);
-
     if (supported) {
       await Linking.openURL(resumeUri);
     } else {
       console.error("Don't know how to open URI: " + resumeUri);
     }
   };
-  const navigation = useNavigation();
-  const navigateToSkills = () => {
-    navigation.navigate("Skills"); // Navigate to the Skills screen
-  };
 
-  const navigateToAchievements = () => {
-    navigation.navigate("Achievements"); // Navigate to the Resume screen
+  const navigateTo = (screen) => {
+    navigation.navigate(screen);
   };
 
   return (
@@ -50,29 +37,32 @@ function MainScreen(props) {
       style={styles.background}
       source={require("./assets/images/solid-color-image.jpeg")}
     >
-      {/* <View style={header ? styles.header_active : styles.header_inactive}> */}
-
       <View style={styles.header}>
-        <Text style={styles.linkText}>EXPERIENCE</Text>
-
-        <TouchableOpacity onPress={handleOpenResume}>
-          <Text style={styles.linkText}>RESUME</Text>
-        </TouchableOpacity>
+        <View style={styles.headerLeft}>
+          <TouchableOpacity onPress={() => navigateTo("Experience")}>
+            <Text style={styles.linkText}>EXPERIENCE</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleOpenResume}>
+            <Text style={styles.linkText}>RESUME</Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.profile_name}>
           <Image
             style={styles.profile_image}
             source={require("./assets/images/self_profile_image.jpg")}
-          ></Image>
+          />
           <Text adjustsFontSizeToFit style={styles.text_main_info}>
             Prateek Shetty
           </Text>
         </View>
-        <TouchableOpacity onPress={navigateToSkills}>
-          <Text style={styles.linkText}>SKILLS</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={navigateToAchievements}>
-          <Text style={styles.linkText}>ACHIEVEMENTS</Text>
-        </TouchableOpacity>
+        <View style={styles.headerRight}>
+          <TouchableOpacity onPress={() => navigateTo("Skills")}>
+            <Text style={styles.linkText}>SKILLS</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigateTo("Achievements")}>
+            <Text style={styles.linkText}>ACHIEVEMENTS</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.container}>
@@ -88,7 +78,7 @@ function MainScreen(props) {
         </View>
       </View>
 
-      <View style={[styles.footer]}>
+      <View style={styles.footer}>
         <a
           style={styles.icons}
           target="_blank"
@@ -96,7 +86,6 @@ function MainScreen(props) {
         >
           <FaLinkedinIn />
         </a>
-
         <a
           href="https://github.com/prateeks007"
           style={styles.icons}
@@ -111,130 +100,82 @@ function MainScreen(props) {
 
 const styles = StyleSheet.create({
   background: {
-    alignItems: "center",
-    position: "relative",
     flex: 1,
   },
-  container: {
-    // flexDirection: "row",
-    width: "100%",
-    height: "100%",
-    flex: 1,
-    zIndex: 1,
-    alignItems: "center",
-    justifyContent: "space-between", // Pushes footer to the bottom
-  },
-
-  footer: {
-    alignSelf: "stretch",
-    alignItems: "center",
-    backgroundColor: "black",
-    bottom: 0,
-    zIndex: 1,
-    height: 50,
-    marginTop: 20,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-
   header: {
-    alignSelf: "stretch",
-    alignItems: "center",
-    // backgroundColor: "black",
-    zIndex: 1,
-    position: "sticky",
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 16, // Adjust as needed
-    paddingVertical: 8, // Adjust as needed
-    marginBottom: 20, // Adjust as needed
+    alignItems: "center",
+    padding: 16,
+    flexWrap: "wrap",
   },
-
-  header_active: {
-    alignSelf: "stretch",
+  headerLeft: {
+    flexDirection: windowWidth > 768 ? "row" : "column",
+    alignItems: windowWidth > 768 ? "center" : "flex-start",
+  },
+  headerRight: {
+    flexDirection: windowWidth > 768 ? "row" : "column",
+    alignItems: windowWidth > 768 ? "center" : "flex-end",
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "black",
-    flex: 1,
-    position: "sticky",
-    top: 0,
-    zIndex: 1,
+    padding: 10,
   },
-  header_inactive: {
-    alignSelf: "stretch",
+  profile_image: {
+    width: windowWidth > 768 ? 200 : 150,
+    height: windowWidth > 768 ? 200 : 150,
+    borderRadius: windowWidth > 768 ? 100 : 75,
+  },
+  profile_name: {
     alignItems: "center",
-    flex: 1,
-    position: "sticky",
-    top: 0,
-    zIndex: 1,
-    marginBottom: 0,
   },
-
+  linkText: {
+    fontSize: windowWidth > 768 ? 16 : 14,
+    fontWeight: "bold",
+    color: "#FB9038",
+    marginVertical: 5,
+    marginHorizontal: windowWidth > 768 ? 10 : 0,
+  },
+  text_main_info: {
+    color: "white",
+    fontSize: windowWidth > 768 ? 30 : 24,
+    marginTop: 10,
+  },
+  view_description: {
+    width: "75%",
+    alignItems: "center",
+  },
+  text_description: {
+    color: "white",
+    fontSize: windowWidth > 768 ? 36 : 28,
+    fontFamily: "Merriweather_BI",
+    textAlign: "center",
+  },
+  text_description2: {
+    color: "#FB9038",
+    fontSize: windowWidth > 768 ? 48 : 38,
+    fontFamily: "Merriweather_BI",
+    textAlign: "center",
+  },
+  text_description3: {
+    color: "white",
+    fontSize: windowWidth > 768 ? 34 : 24,
+    fontFamily: "Roboto-T",
+    textAlign: "center",
+    marginTop: 20,
+  },
   icons: {
     color: "white",
     margin: 10,
     fontSize: 20,
-  },
-  linkText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#FB9038", // Replace with required text color
-    marginRight: 10, // Adjust spacing between links
-  },
-  pdfContainer: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  pdf: {
-    flex: 1,
-    width: "100%",
-  },
-  profile_image: {
-    width: 200,
-    height: 200,
-    borderRadius: 200 / 2,
-  },
-  profile_name: {
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  text_description: {
-    color: "white",
-    fontSize: 30,
-    fontFamily: "Merriweather_BI",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text_description2: {
-    color: "#FB9038",
-    fontSize: 40,
-    fontFamily: "Merriweather_BI",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text_description3: {
-    color: "white",
-    fontSize: 30,
-    fontFamily: "Roboto-T",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  text_main_info: {
-    color: "white",
-    fontSize: 30,
-  },
-  view_description: {
-    width: "75%",
-    height: "100%",
-    flex: 1,
-    alignContent: "center",
-    // backgroundColor: "black",
-    // opacity: 0.8,
-    zIndex: 1,
-    padding: "10%",
   },
 });
 

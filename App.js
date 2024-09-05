@@ -4,6 +4,7 @@ import MainScreen from "./MainScreen";
 import SkillScreen from "./SkillScreen";
 import Popup from "./Popup";
 import AchievementScreen from "./AcheivementScreen";
+import ExperienceScreen from "./ExperienceScreen";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -38,6 +39,7 @@ export default function App() {
           />
           <Stack.Screen name="Skills" component={SkillScreen} />
           <Stack.Screen name="Achievements" component={AchievementScreen} />
+          <Stack.Screen name="Experience" component={ExperienceScreen} />
         </Stack.Navigator>
       </NavigationContainer>
 

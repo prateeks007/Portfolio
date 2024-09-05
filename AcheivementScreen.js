@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
-  ImageBackground,
   StyleSheet,
-  TouchableOpacity,
+  ScrollView,
+  ImageBackground,
+  Dimensions,
 } from "react-native";
+
+const windowWidth = Dimensions.get("window").width;
 
 const AchievementScreen = () => {
   const achievements = [
@@ -34,7 +37,7 @@ const AchievementScreen = () => {
     },
     {
       achievement: "Successfully completed Hacktoberfest 2020.",
-      date: "OCT 2022",
+      date: "OCT 2020",
     },
     {
       achievement:
@@ -49,115 +52,63 @@ const AchievementScreen = () => {
     // Add more achievements as needed
   ];
 
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  const handleMouseEnter = (index) => {
-    setHoveredIndex(index);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredIndex(null);
-  };
-
   return (
     <ImageBackground
       style={styles.background}
       source={require("./assets/images/solid-color-image.jpeg")}
     >
-      <View style={styles.mainContainer}>
-        <View style={styles.viewDescription}>
-          <Text style={styles.pageTitle}>My Achievements</Text>
-
-          {/* Displaying achievements as a simple list */}
-          {achievements.map((achievement, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => {}}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <View
-                style={[
-                  styles.achievementItem,
-                  index === hoveredIndex && styles.highlightedItem,
-                ]}
-              >
-                <View style={styles.achievementContent}>
-                  <Text style={styles.achievementText}>
-                    {achievement.achievement}
-                  </Text>
-                  <Text style={styles.dateText}>{achievement.date}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
+      <ScrollView style={styles.container}>
+        <Text style={styles.header}>Achievements</Text>
+        {achievements.map((item, index) => (
+          <View key={index} style={styles.achievementCard}>
+            <Text style={styles.date}>{item.date}</Text>
+            <Text style={styles.achievementText}>{item.achievement}</Text>
+          </View>
+        ))}
+      </ScrollView>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    alignItems: "center",
-    position: "relative",
     flex: 1,
   },
-  mainContainer: {
-    width: "100%",
-    height: "100%",
+  container: {
     flex: 1,
-    paddingVertical: 40,
-    alignItems: "center",
-    padding: 20,
+    padding: windowWidth > 600 ? 24 : 16,
   },
-  viewDescription: {
-    width: "100%",
-    height: "100%",
-    flex: 1,
-    alignContent: "center",
-    justifyContent: "center",
-    zIndex: 1,
-  },
-  pageTitle: {
-    fontSize: 36,
+  header: {
+    fontSize: windowWidth > 600 ? 32 : 28,
     fontWeight: "bold",
     color: "#FB9038",
-    marginBottom: 20,
+    marginBottom: 28,
     textAlign: "center",
+    fontFamily: "Roboto-T", // Changed from 'Merriweather_BI' to 'Roboto-T'
   },
-  achievementItem: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    borderRadius: 10,
-    padding: 15,
-    marginVertical: 10,
-    width: "80%",
-    alignSelf: "center",
-    transition: "transform 0.3s, backgroundColor 0.3s", // Smooth transition on hover
+  achievementCard: {
+    backgroundColor: "rgba(40, 44, 52, 0.9)",
+    borderRadius: 16,
+    padding: windowWidth > 600 ? 24 : 20,
+    marginBottom: 24,
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
-  highlightedItem: {
-    backgroundColor: "#FB9038", // Highlight color
-    transform: [{ scale: 1.05 }],
-    opacity: 0.7,
-  },
-  achievementContent: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 10, // Add padding horizontally between achievement and date
-    marginBottom: 5, // Add margin vertically between achievements
+  date: {
+    fontSize: windowWidth > 600 ? 18 : 16,
+    fontWeight: "bold",
+    color: "#FB9038",
+    marginBottom: 12,
+    fontFamily: "Roboto-L",
   },
   achievementText: {
-    flex: 1,
-    fontSize: 20,
-    textAlign: "justify",
-    fontFamily: "Roboto-T",
-  },
-  dateText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "right",
-    marginLeft: 10, // Add margin between achievement text and date
+    fontSize: windowWidth > 600 ? 20 : 18,
+    color: "#E0E0E0",
+    fontFamily: "Roboto-L",
+    lineHeight: windowWidth > 600 ? 28 : 26,
   },
 });
 
